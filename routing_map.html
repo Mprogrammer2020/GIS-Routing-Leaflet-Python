@@ -1,0 +1,24 @@
+import folium
+
+def create_map(start_lat, start_lon, end_lat, end_lon, waypoints):
+    # Create a map centered around the starting point
+    map_obj = folium.Map(location=[start_lat, start_lon], zoom_start=10)
+
+    # Add markers for start and end points
+    folium.Marker([start_lat, start_lon], popup='Start Point', icon=folium.Icon(color='red')).add_to(map_obj)
+    folium.Marker([end_lat, end_lon], popup='End Point', icon=folium.Icon(color='blue')).add_to(map_obj)
+
+    # Add waypoints and draw path
+    folium.PolyLine(locations=waypoints, color='green', weight=5, opacity=0.8).add_to(map_obj)
+
+    # Save map to HTML file
+    map_obj.save('routing_map.html')
+
+# Example usage
+start_lat = 40.7128
+start_lon = -74.0060
+end_lat = 34.0522
+end_lon = -118.2437
+waypoints = [[40.7128, -74.0060], [39.9526, -75.1652], [34.0522, -118.2437]]  # List of waypoints
+
+create_map(start_lat, start_lon, end_lat, end_lon, waypoints)
